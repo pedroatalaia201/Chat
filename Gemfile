@@ -60,3 +60,5 @@ gem 'bootstrap-sass'
 
 # Used to authenticate and create users
 gem 'devise'
+# Used to create custom views for devise with bootstrap
+# gem 'devise-bootstrapped'
