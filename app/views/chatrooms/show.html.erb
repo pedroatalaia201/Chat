@@ -1,9 +1,34 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Name:</strong>
-  <%= @chatroom.name %>
+    <strong>Name:</strong>
+    <%= @chatroom.name %>
 </p>
 
-<%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |
-<%= link_to 'Back', chatrooms_path %>
+<div data-behavior= "messages">
+    <% @chatroom.messages.order(created_at: :desc).limit(100).reverse.each do |message| %>
+        <div>
+            <strong>
+                <%= message.user.username %>
+            </strong>
+
+            <%= message.body %>
+        </div>
+    <% end %>
+</div>
+
+<%= form_for [@chatroom, Message.new] do |f| %>
+    <%= f.text_area :body, rows: 1, class: "form-control", autofocus: true %>
+<% end %>
+
+<script>
+    // The coffe script was not working
+    let form = document.getElementById('new_message');
+
+    form.addEventListener("keypress", (e) => {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            form.submit();
+            
+            console.log("trying to submit...");
+        }
+    });
+</script>
